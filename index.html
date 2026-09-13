@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Ikrom Walidaini — Profil Resmi | Web Developer & Digital Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(45deg, #050510, #0f172a, #0c1a2f, #081828);
+            background-size: 400% 400%;
+            animation: warnaBerubah 15s ease infinite;
+            position: relative;
+            color: #e0f7ff;
+        }
+
+        /* ========== 🌊 EFEK AIR BERGERAK LATAR ========== */
+        .gelombang-air {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 180, 255, 0.10) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 220, 200, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(50, 100, 255, 0.06) 0%, transparent 50%);
+            animation: airMengalir 10s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .permukaan-air {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 220px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%230099ff' fill-opacity='0.12' d='M0,192L48,176C96,160,192,128,288,128C384,128,480,160,576,186.7C672,213,768,235,864,213.3C960,192,1056,128,1152,112C1248,96,1344,128,1392,144L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: 1440px 320px;
+            animation: gelombangBergerak 7s linear infinite;
+            opacity: 0.6;
+            z-index: 2;
+            filter: blur(3px);
+        }
+
+        /* ========== 💨 EFEK ASAP / DEBU BERCAHAYA ========== */
+        .wadah-asap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .asap {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.12) 0%, rgba(0, 100, 200, 0.04) 40%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: asapNaik 12s ease-in-out infinite;
+        }
+
+        /* ========== ✨ CAHAYA MEMANCAR & SINAR BERPUTAR ========== */
+        .sumber-cahaya {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.30) 0%, rgba(255, 215, 0, 0.12) 35%, transparent 70%);
+            border-radius: 50%;
+            animation: cahayaMemancar 5s ease-in-out infinite alternate;
+            box-shadow: 
+                0 0 70px rgba(0, 180, 255, 0.4),
+                0 0 140px rgba(0, 120, 255, 0.25),
+                0 0 200px rgba(255, 200, 0, 0.15);
+            z-index: 2;
+        }
+
+        .sinar-cahaya {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            width: 650px;
+            height: 18px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.35), transparent);
+            transform-origin: center;
+            animation: sinarBerputar 18s linear infinite;
+            filter: blur(4px);
+            z-index: 2;
+        }
+
+        /* ========== 🖤 BAYANGAN NYATA & BERUBAH ========== */
+        .bayangan-dalam {
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.6),
+                0 15px 30px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(0, 200, 255, 0.1),
+                inset 0 -1px 0 rgba(0,0,0,0.4);
+        }
+        .bayangan-berubah {
+            animation: bayanganBergerak 5s ease-in-out infinite alternate;
+        }
+
+        /* ========== 🎨 WARNA BERUBAH SENDIRI ========== */
+        .warna-hidup {
+            background: linear-gradient(45deg, #00ccff, #0080ff, #00ffcc, #ffcc00, #00ccff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradienBerjalan 6s ease infinite;
+        }
+
+        /* ========== 🔷 BENTUK BERUBAH & KACA TEMBUS ========== */
+        .bentuk-berubah {
+            animation: ubahBentuk 8s ease-in-out infinite alternate;
+            background: linear-gradient(135deg, rgba(0, 200, 255, 0.10), rgba(0, 100, 200, 0.03));
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 200, 255, 0.15);
+        }
+
+        /* ========== 📸 EFEK FOTO PROFIL ========== */
+        .foto-profil {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid #00ccff;
+            box-shadow: 0 0 25px rgba(0,200,255,0.5);
+            object-fit: cover;
+            transition: all 0.4s ease;
+            animation: bingkaiBerubah 3s linear infinite;
+        }
+        .foto-profil:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(0,255,200,0.7);
+        }
+
+        /* ========== 💖 BINGKAI LOVE FOTO PROFIL ========== */
+        .bingkai-love-profil {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto;
+        }
+
+        .bingkai-love-profil .foto-profil {
+            width: 180px;
+            height: 180px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        .lingkaran-neon-love {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 205px;
+            height: 205px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 3px solid #00ff88;
+            box-shadow:
+                0 0 15px #00ff88,
+                0 0 30px rgba(0, 255, 136, 0.8),
+                inset 0 0 15px rgba(0, 255, 136, 0.4);
+            animation: neonLoveBerdenyar 2s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .hiasan-love-foto {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .love kecil {
+            position: absolute;
+            color: #ff4d6d;
+            text-shadow: 0 0 8px #ff4d6d, 0 0 16px rgba(255, 77, 109, 0.8);
+            animation: loveMuncul 2s ease-in-out infinite;
+        }
+
+        .love:nth-child(1) { top: -8px; left: 10%; font-size: 18px; animation-delay: 0s; }
+        .love:nth-child(2) { top: -12px; left: 45%; font-size: 22px; animation-delay: 0.3s; }
+        .love:nth-child(3) { top: -6px; right: 10%; font-size: 16px; animation-delay: 0.6s; }
+        .love:nth-child(4) { bottom: -8px; left: 15%; font-size: 17px; animation-delay: 0.9s; }
+        .love:nth-child(5) { bottom: -10px; right: 15%; font-size: 19px; animation-delay: 1.2s; }
+
+        /* ========== ⚡ ANIMASI UTAMA ========== */
+        @keyframes warnaBerubah {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 100%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 0%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes airMengalir {
+            0% { transform: translateX(-3%) translateY(-1%); }
+            100% { transform: translateX(3%) translateY(1%); }
+        }
+
+        @keyframes gelombangBergerak {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes asapNaik {
+            0% { transform: translateY(100vh) scale(0.25); opacity: 0; }
+            20% { opacity: 0.5; }
+            100% { transform: translateY(-120px) scale(2); opacity: 0; }
+        }
+
+        @keyframes cahayaMemancar {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+            100% { transform: translate(-50%, -50%) scale(1.7); opacity: 1; }
+        }
+
+        @keyframes sinarBerputar {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes bayanganBergerak {
+            0% { box-shadow: 0 20px 40px rgba(0, 150, 255, 0.25); }
+            100% { box-shadow: 0 30px 60px rgba(0, 255, 200, 0.35); }
+        }
+
+        @keyframes gradienBerjalan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes ubahBentuk {
+            0% { border-radius: 20px 50px 20px 50px; }
+            25% { border-radius: 50px 20px 50px 20px; }
+            50% { border-radius: 30px 60px 30px 60px; }
+            75% { border-radius: 60px 30px 60px 30px; }
+            100% { border-radius: 20px 50px 20px 50px; }
+        }
+
+        @keyframes bingkaiBerubah {
+            0% { border-color: #00ccff; box-shadow: 0 0 25px rgba(0,200,255,0.5); }
+            25% { border-color: #00ffcc; box-shadow: 0 0 25px rgba(0,255,200,0.5); }
+            50% { border-color: #ffcc00; box-shadow: 0 0 25px rgba(255,200,0,0.5); }
+            75% { border-color: #cc00ff; box-shadow: 0 0 25px rgba(200,0,255,0.5); }
+            100% { border-color: #00ccff; box-shadow: 0 0 25px rgba(0,200,255,0.5); }
+        }
+
+        @keyframes neonLoveBerdenyar {
+            0% {
+                opacity: 0.85;
+                box-shadow:
+                    0 0 15px #00ff88,
+                    0 0 30px rgba(0, 255, 136, 0.8),
+                    inset 0 0 15px rgba(0, 255, 136, 0.4);
+            }
+            50% {
+                opacity: 1;
+                box-shadow:
+                    0 0 20px #00ff88,
+                    0 0 40px rgba(0, 255, 136, 1),
+                    inset 0 0 20px rgba(0, 255, 136, 0.6);
+            }
+            100% {
+                opacity: 0.85;
+                box-shadow:
+                    0 0 15px #00ff88,
+                    0 0 30px rgba(0, 255, 136, 0.8),
+                    inset 0 0 15px rgba(0, 255, 136, 0.4);
+            }
+        }
+
+        @keyframes loveMuncul {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-5px) scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        /* ========== 📦 WADAH UTAMA ========== */
+        .wadah-utama {
+            position: relative;
+            z-index: 10;
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .kotak-bio {
+            padding: 40px 30px;
+            margin: 25px 0;
+            bayangan-dalam;
+            bentuk-berubah;
+            bayangan-berubah;
+            transition: all 0.5s ease;
+        }
+        .kotak-bio:hover {
+            transform: translateY(-6px) scale(1.015);
+            border-color: rgba(0, 255, 200, 0.4);
+        }
+
+        .tautan-kartu {
+            display: block;
+            padding: 20px 25px;
+            margin: 15px 0;
+            background: rgba(10, 30, 60, 0.5);
+            border: 1px solid rgba(0, 200, 255, 0.15);
+            border-radius: 16px;
+            text-decoration: none;
+            color: #e0f7ff;
+            transition: all 0.4s ease;
+        }
+        .tautan-kartu:hover {
+            background: rgba(0, 100, 200, 0.2);
+            transform: translateX(10px);
+            border-color: rgba(0, 255, 200, 0.4);
+            box-shadow: 0 0 25px rgba(0, 200, 255, 0.2);
+        }
+
+        .tombol-utama {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(45deg, #0080ff, #00ccff, #00ffcc);
+            background-size: 200% 200%;
+            animation: gradienBerjalan 4s ease infinite;
+            color: #000;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 0 20px rgba(0, 200, 255, 0.35);
+            transition: all 0.3s ease;
+        }
+        .tombol-utama:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 35px rgba(0, 255, 200, 0.5);
+        }
+
+        /* ========== 📱 RESPONSIF ========== */
+        @media (max-width: 600px) {
+            .kotak-bio { padding: 30px 20px; }
+            .foto-profil { width: 150px; height: 150px; }
+            .bingkai-love-profil { width: 190px; height: 190px; }
+            .lingkaran-neon-love { width: 175px; height: 175px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🌊 AIR BERGERAK LATAR -->
+    <div class="gelombang-air"></div>
+    <div class="permukaan-air"></div>
+
+    <!-- 💨 ASAP BERCAHAYA -->
+    <div class="wadah-asap">
+        <div class="asap" style="left: 8%; animation-delay: 0s;"></div>
+        <div class="asap" style="left: 22%; animation-delay: 2.5s;"></div>
+        <div class="asap" style="left: 42%; animation-delay: 5s;"></div>
+        <div class="asap" style="left: 68%; animation-delay: 1.5s;"></div>
+        <div class="asap" style="left: 88%; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- ✨ CAHAYA MEMANCAR & SINAR BERPUTAR -->
+    <div class="sumber-cahaya"></div>
+    <div class="sinar-cahaya"></div>
+    <div class="sinar-cahaya" style="transform: translate(-50%, -50%) rotate(45deg); opacity: 0.6;"></div>
+    <div class="sinar-cahaya" style="transform: translate(-50%, -50%) rotate(90deg); opacity: 0.4;"></div>
+    <div class="sinar-cahaya" style="transform: translate(-50%, -50%) rotate(135deg); opacity: 0.6;"></div>
+
+    <!-- 📦 ISI UTAMA -->
+    <div class="wadah-utama">
+        <!-- 📌 KEPALA PROFIL DENGAN FOTO -->
+        <div class="text-center mb-12">
+            <!-- ✅ FOTO PROFIL DENGAN BINGKAI LOVE NEON -->
+            <div class="mt-6 mb-8 bingkai-love-profil">
+                <div class="lingkaran-neon-love"></div>
+                <img src="romi.png" alt="Ikrom Walidaini" class="foto-profil">
+                <div class="hiasan-love-foto">
+                    <span class="love">❤️</span>
+                    <span class="love">💖</span>
+                    <span class="love">❤️</span>
+                    <span class="love">💖</span>
+                    <span class="love">❤️</span>
+                </div>
+            </div>
+
+            <h1 class="text-5xl md:text-6xl font-extrabold warna-hidup mb-3">✨ Ikrom Walidaini ✨</h1>
+            <p class="text-xl md:text-2xl text-cyan-200/85">🚀 Web Developer • Pencipta Solusi Digital • Ahli Kreativitas Teknologi</p>
+            <p class="text-lg text-cyan-300/60 mt-2">📍 Berbasis: Tegal / Slawi — Jawa Tengah, Indonesia</p>
+        </div>
+
+        <!-- 📌 TENTANG SAYA -->
+        <div class="kotak-bio">
+            <h2 class="text-3xl font-bold text-cyan-300 mb-4">👤 Tentang Saya</h2>
+            <p class="text-lg leading-relaxed text-cyan-100/85 mb-4">
+                Halo! Saya <strong>Ikrom Walidaini</strong>, seorang pengembang web yang berdedikasi tinggi. Berawal dari ketertarikan mendalam terhadap dunia teknologi, saya terus belajar, berlatih, dan menciptakan karya-karya digital yang berkualitas.
+            </p>
+            <p class="text-lg leading-relaxed text-cyan-100/85 mb-4">
+                Saya menguasai pembuatan website statis maupun dinamis, desain tampilan memukau, integrasi fitur canggih, hingga pengembangan sistem khusus. Karya saya dikenal dengan desain yang indah, kode yang rapi, serta efek visual tingkat tinggi yang memikat mata siapa pun yang melihatnya.
+            </p>
+            <p class="text-lg leading-relaxed text-cyan-100/85">
+                Visi saya: <em>"Membawa teknologi menjadi sesuatu yang indah, bermanfaat, dan dapat dijangkau oleh siapa saja — dari usaha kecil hingga kebutuhan global."</em>
+            </p>
+        </div>
+
+        <!-- 📌 DATA & KARYA DI GITHUB -->
+        <div class="kotak-bio">
+            <h2 class="text-3xl font-bold text-cyan-300 mb-5">💻 Karya & Repositori — GitHub</h2>
+            <p class="text-cyan-100/80 mb-4">Semua proyek, kode sumber, dan karya kreatif saya tersimpan dan dikembangkan di platform GitHub:</p>
+
+            <a href="https://github.com/ikromwalidaini60-cloud" target="_blank" class="tautan-kartu">
+                <strong>🔗 Akun Utama:</strong> github.com/ikromwalidaini60-cloud
+                <br><span class="text-sm text-cyan-300/60">→ Puluhan proyek: Website Bisnis, Sistem Keamanan, Katalog Digital, Efek Visual, dan banyak lagi</span>
+            </a>
+
+            <a href="https://github.com/walidainiikrom572-crypto" target="_blank" class="tautan-kartu">
+                <strong>🔗 Akun Pengembangan:</strong> github.com/walidainiikrom572-crypto
+                <br><span class="text-sm text-cyan-300/60">→ Proyek eksperimental, alat bantu, dan inovasi terbaru</span>
+            </a>
+
+            <p class="mt-4 text-cyan-200/70">✅ <em>Contoh Karya Unggulan: Sistem Keamanan & Enkripsi, Jasa Website Efek Maksimal, Katalog Produk Interaktif, Website Al-Qur'an, dan beragam desain visual bergerak.</em></p>
+        </div>
+
+        <!-- 📌 LAYANAN & PROFIL DI FIVERR -->
+        <div class="kotak-bio">
+            <h2 class="text-3xl font-bold text-cyan-300 mb-5">🌍 Pasar Dunia</h2>
+            <p class="text-cyan-100/80 mb-4">Membuka peluang kerja sama dengan klien dari seluruh dunia melalui platform pasar jasa terbesar:</p>
+
+            <a href="https://www.fiverr.com/ikrom_webdev" target="_blank" class="tautan-kartu">
+                <strong>🔗 Profil Resmi:</strong> fiverr.com/ikrom_webdev
+                <br><span class="text-sm text-cyan-300/60">→ Jasa: Desain & Pembuatan Website Profesional, HTML/CSS, Tampilan Responsif, Efek Visual Kreatif</span>
+            </a>
+
+            <div class="mt-5 p-4 bg-cyan-900/20 rounded-xl border border-cyan-500/20">
+                <h3 class="text-lg font-semibold text-cyan-200 mb-2">📦 Paket Layanan Tersedia:</h3>
+                <ul class="text-cyan-100/80 space-y-1 text-sm">
+                    <li>🟢 <strong>Basic ($5):</strong> Tampilan dasar, 1 halaman, rapi & responsif</li>
+                    <li>🟡 <strong>Standard ($15):</strong> Lengkap 2–3 halaman + efek keren + kode sumber</li>
+                    <li>🔴 <strong>Premium ($30):</strong> Desain kustom penuh, efek tingkat tinggi, revisi tak terbatas</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 📌 KELEBIHAN & KEMAMPUAN -->
+        <div class="kotak-bio">
+            <h2 class="text-3xl font-bold text-cyan-300 mb-5">💡 Kemampuan & Keunggulan</h2>
+            <div class="grid md:grid-cols-2 gap-4 text-cyan-100/85">
+                <div>✅ Pembuatan Website Statis & Dinamis</div>
+                <div>✅ Desain Tampilan Modern & Menarik</div>
+                <div>✅ Efek Visual Tingkat Tinggi (Air, Asap, Cahaya, Animasi)</div>
+                <div>✅ Pengembangan Sistem Khusus & Aplikasi Web</div>
+                <div>✅ Integrasi Fitur: Formulir, Peta, Pembayaran, Kontak</div>
+                <div>✅ Optimasi Tampilan HP & Komputer</div>
+                <div>✅ Kode Rapi, Terstruktur & Mudah Dikembangkan</div>
+                <div>✅ Revisi Sampai Hasil Memuaskan</div>
+            </div>
+        </div>
+
+        <!-- 📌 KONTAK & HUBUNGI -->
+        <div class="kotak-bio text-center">
+            <h2 class="text-3xl font-bold text-cyan-300 mb-4">📞 Hubungi Saya</h2>
+            <p class="text-lg text-cyan-100/80 mb-6">Siap mewujudkan ide dan kebutuhan digital Anda — baik untuk kebutuhan lokal maupun pasar internasional!</p>
+
+            <div class="space-y-3 mb-8 text-cyan-200/85">
+                <p>📧 Email: <strong>ikromwalidaini60@gmail.com</strong></p>
+                <p>📱 WhatsApp: <strong>+62 895 4112 39265</strong></p>
+            </div>
+
+            <a href="https://wa.me/62895411239265" class="tombol-utama">💬 Mulai Kerja Sama Sekarang</a>
+        </div>
+
+        <!-- 📌 KAKI HALAMAN -->
+        <footer class="mt-14 text-center text-cyan-300/50 text-sm">
+            © 2026 • <span class="text-cyan-200 font-semibold">Ikrom Walidaini</span> • Profil Resmi & Portofolio Karya • Semua Hak Dilindungi 🌐💎✨<br>
+            <em>"Teknologi indah saat bermanfaat bagi banyak orang."</em>
+        </footer>
+    </div>
+
+</body>
+</html>
